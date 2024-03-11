@@ -39,7 +39,7 @@ namespace esphome {
           this->uart_->write_array(open_cmd, sizeof(open_cmd));
           ESP_LOGD(TAG, "send open cmd: %s", format_uart_data(open_cmd, sizeof(open_cmd)));
         } else if (scaled_pos == 0) { // close
-          uint8_t close_cmd[7] = {0x55, 0x12, 0x34, 0x03, 0x02, 0x00, 0x00};
+          uint8_t close_cmd[7] = {0x55, id_low_, id_high_, 0x03, 0x02, 0x00, 0x00};
           uint16_t crc = crc16(close_cmd, sizeof(close_cmd) - 2);
           close_cmd[5] = static_cast<uint8_t>(crc & 0x00FF);
           close_cmd[6] = static_cast<uint8_t>((crc & 0xFF00) >> 8);
